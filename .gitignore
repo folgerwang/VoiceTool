@@ -1,0 +1,10 @@
+# built by setup.ps1 - never commit
+venv/
+models/
+third_party/
+output/
+__pycache__/
+*.py[cod]
+voices/_trash/
+voices/_*/
+.cache/

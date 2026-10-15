@@ -1,0 +1,49 @@
+# CosyVoice inference deps, curated. Not the upstream requirements.txt: that
+# pins torch==2.3.1 (would replace the CUDA torch setup.ps1 installs), has
+# training-only packages (deepspeed, tensorboard, wandb), demo-only ones
+# (gradio, fastapi, grpcio) and lazy optionals (tensorrt, vllm, ttsfrd).
+#
+# torch and torchaudio are installed separately (CUDA index) and must not be
+# listed here.
+
+# --- pinned: pure-python, API-sensitive -----------------------------------
+conformer==0.3.2
+diffusers==0.29.0
+HyperPyYAML==1.2.3
+inflect==7.3.1
+omegaconf==2.3.0
+transformers==4.51.3
+wetext==0.0.4
+x-transformers==2.11.24
+
+# --- what cosyvoice/cli imports on the zero-shot / instruct2 / vc path -----
+einops
+modelscope
+numpy<2.3
+onnxruntime
+openai-whisper
+packaging
+regex
+rich
+scipy
+soundfile
+tiktoken
+tqdm
+
+# --- pulled in anyway, measured 2026-10-15 on Windows ----------------------
+# The model yaml names cosyvoice.dataset.processor (pyarrow, pyworld) and
+# matcha.utils.audio (librosa), and importing any matcha.utils.* module runs
+# matcha/utils/__init__.py, which imports hydra, lightning, gdown,
+# matplotlib and wget. None of them do anything at inference; they just
+# have to import.
+hydra-core
+lightning
+gdown
+matplotlib
+wget
+librosa
+pyarrow
+pyworld
+
+# mp3 output: a static ffmpeg build, found by say.py through imageio_ffmpeg
+imageio-ffmpeg
